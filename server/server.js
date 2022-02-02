@@ -14,4 +14,5 @@ app.listen(PORT, () => console.log(`Server started on: ${PORT}`))
 mongoose.connect(process.env.MONGO_CONN, () => console.log("DB connected"))
 
 app.use("/users", require("./controllers/users"))
+app.use("/tasks", require("./controllers/tasks"))
 
