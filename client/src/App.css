@@ -2,6 +2,6 @@ body{
     background-color: rgba(42, 39, 49, 0.85);
 }
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6, .text{
     color: rgba(255, 255, 255, 0.795);
 }
