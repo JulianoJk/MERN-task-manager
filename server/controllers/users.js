@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
     try {
         const {email, password} = req.body
         if(!email || !password) {
-            return res.status(400).json({message: "Mandatory fileds are missing"})
+            return res.status(400).json({message: "Mandatory fields are missing"})
         }
 
         const user = await User.findOne({email: email})
@@ -51,7 +51,7 @@ router.post("/register", async (req, res) => {
         let {email, password, passwordRepeat, username} = req.body
         // Validations 
         if(!email || !password || !passwordRepeat) {
-            return res.status(400).json({message: "Mandatory fileds are missing"})
+            return res.status(400).json({message: "Mandatory fields are missing"})
         }
         if(password.length < 5) {
             return res.status(400).json({message: "Password needs at least 5 characters"})

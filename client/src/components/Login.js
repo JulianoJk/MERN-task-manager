@@ -19,9 +19,14 @@ const Login = () => {
         setPassword(event.target.value)
     }
 
+    const handleInputs = e=>{
+        e.preventDefault()
+        submit()
+    
+    }
     const submit = async (event) => {
 
-        const response = await fetch('http://localhost:3001/users/login', {
+        const response  = await fetch('http://localhost:3001/users/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -39,6 +44,7 @@ const Login = () => {
     return (
         <div className="container flex-column" style={{width: "50%"}}>
             <h1>Login</h1>
+            <form onSubmit={handleInputs} >
                 {/*Email Input*/}
                 <label htmlFor="email" className="control-label text"><strong>Email:</strong></label>
                 <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={onEmailChange} />
@@ -48,8 +54,9 @@ const Login = () => {
                 <input type="password" className="form-control" id="password" onChange={onPasswordChange} placeholder="Password"/>
                 <br />
                 <div className="d-grid gap-2">
-                <button className="btn btn-success flex-wrap " onClick={submit}>Submit</button>
+                <button className="btn btn-success flex-wrap ">Submit</button>
                 </div>
+            </form>
         </div>
     )
 }

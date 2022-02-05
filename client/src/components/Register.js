@@ -13,35 +13,40 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
 
     const onEmailChange = (event) => {
-        setEmail(event.target.value)
+        setEmail(event.target.value);
+    }
+    const onNameChange = (event) => {
+        setName(event.target.value);
     }
 
     const handlePassword = (event) => {
-        setPassword(event.target.value)
+        setPassword(event.target.value);
     }
 
     const handleConfirmPassword = (event) => {
-        setConfirmPassword(event.target.value)
+        setConfirmPassword(event.target.value);
     }
 
-    const handleInputs = ()=>{
+    const handleInputs = e=>{
+        e.preventDefault();
         //Check if email is null
         // TODO: add more characters as for the limit
         if (email.length!== 0){
             // Check if passwords match and they are not null
             if(password === confirmPassword && confirmPassword.length!=0){
-                // TODO: CHANGE TO SUBMIT!!!!!!!!!!!!!!!!
-                console.log("Okey!");
-                submit()
+                submit();   
             }else{
                 // TODO: Fix this
-                console.log("Wrong Password!");
+                alert("Passwords do not match!");
             }
         }else{
             // TODO: Fix this
             console.log("Email can not be null");
         }
     }
+
+
+
 
     const submit = async (event) => {
 
@@ -50,13 +55,22 @@ const Register = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 "email": email,
-                "user": user,
-                "password": password
+                "user": name,
+                "password": password,
+                "passwordRepeat":confirmPassword
             })
         })
         const data = await response.json()
         console.log(data)
-        value.setUser(user)
+        //Set user name, token(extracted from the json)
+        //TODO: Change
+        value.setUser(            
+            username= name,
+            token= data.token,
+            id= data._id)
+        console.log(value.user);
+
+        alert("Submited!")
         navigate('/profile')
     }
 
@@ -64,28 +78,34 @@ const Register = () => {
 
 
     return (
+
         <div className="container flex-column" style={{width: "50%"}}>
             <h1>Register</h1>
+            <form onSubmit={handleInputs}>
                 {/*Email Input*/}
                 <label htmlFor="email" className="control-label text"><strong>Email:</strong></label>
-                <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={onEmailChange}/>
+                <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={onEmailChange}
+                required minLength="8"/>
                 <br />
                 {/* TODO: Add onChange for the name */}
                 <label htmlFor="Username" className="control-label text"><strong>Username:</strong></label>
-                <input type="email" className="form-control" id="Username" placeholder="John Smith" />
+                <input type="text" className="form-control" id="Username" placeholder="John Smith"
+                onChange={onNameChange} />
                 <br />
 
                 <label htmlFor="password" className="control-label text" ><strong>Password:</strong></label>
-                <input type="password" className="form-control" id="password"  placeholder="Password" onChange={handlePassword}/>
+                <input type="password" className="form-control" id="password"  placeholder="Password" onChange={handlePassword} 
+                required minLength="6"/>
                 <br />
 
                 <label htmlFor="confirmPassword" className="control-label text"><strong>Confirm Password:</strong></label>
-                <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" onChange={handleConfirmPassword}/>
+                <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm Password" onChange={handleConfirmPassword} required minLength="6"/>
                 <br />
 
                 <div className="d-grid gap-2">
-                <button className="btn btn-success flex-wrap" onClick={handleInputs} >Submit</button>
+                <button className="btn btn-success flex-wrap">Submit</button>
                 </div>
+            </form>
         </div>
     )
 }
