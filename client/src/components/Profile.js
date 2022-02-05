@@ -1,16 +1,23 @@
 import { useEffect } from "react"
 import { useContext, useState } from "react"
+import { useNavigate } from "react-router"
 import { UserContext } from "../context/ContextProvider"
 
 const Profile = () => {
 
+    
+    const navigate = useNavigate()
     const value = useContext(UserContext)
     const [currentUser, setCurrentUser] = useState(value.user)
     
+    //TODO: If there is no user, navigate to login
+    if(currentUser===''){
+        alert('No user!')        
+    }
 
     useEffect(() => {
 
-        console.log(value.user.username)
+        console.log(currentUser)
     })
 
     return (

@@ -5,7 +5,8 @@ import { UserContext } from "../context/ContextProvider"
 const Register = () => {
 
     const navigate = useNavigate()
-    const value = useContext(UserContext)
+    
+    const {user, setUser} = useContext(UserContext)
 
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
@@ -45,9 +46,6 @@ const Register = () => {
         }
     }
 
-
-
-
     const submit = async (event) => {
 
         const response = await fetch('http://localhost:3001/users/register', {
@@ -55,7 +53,7 @@ const Register = () => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 "email": email,
-                "user": name,
+                "username": name,
                 "password": password,
                 "passwordRepeat":confirmPassword
             })
@@ -64,18 +62,15 @@ const Register = () => {
         console.log(data)
         //Set user name, token(extracted from the json)
         //TODO: Change
-        value.setUser(            
-            username= name,
-            token= data.token,
-            id= data._id)
-        console.log(value.user);
+        setUser({      
+            "username": name,
+            "token": data.token,
+            "id": data._id
+        })
 
         alert("Submited!")
         navigate('/profile')
     }
-
-
-
 
     return (
 
@@ -106,6 +101,8 @@ const Register = () => {
                 <button className="btn btn-success flex-wrap">Submit</button>
                 </div>
             </form>
+            {/* links to login */}
+            <a href="/login" className="text flex-wrap link-light" >Already a member?</a>
         </div>
     )
 }

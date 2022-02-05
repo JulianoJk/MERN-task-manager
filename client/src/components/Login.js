@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { UserContext } from "../context/ContextProvider"
 
 
+
 const Login = () => {
 
     const navigate = useNavigate()
@@ -19,10 +20,14 @@ const Login = () => {
         setPassword(event.target.value)
     }
 
+    //In case the user wants to register
+    const navigateRegister=()=>{
+        navigate('./Register.js')
+    }
+
     const handleInputs = e=>{
         e.preventDefault()
         submit()
-    
     }
     const submit = async (event) => {
 
@@ -57,6 +62,11 @@ const Login = () => {
                 <button className="btn btn-success flex-wrap ">Submit</button>
                 </div>
             </form>
+            
+            {/* Links to change password or register */}
+            <a href="/password-reset" className="text flex-wrap link-light" >Forgot your password?</a>
+            <br />
+            <a href="/register" className="text flex-wrap link-light" >Not a member?</a>
         </div>
     )
 }

@@ -4,10 +4,17 @@ export const UserContext = React.createContext()
 
 const ContextProvider = (props) => {
     
-    const [user, setUser] = useState({username: '', token: '', id: ''})
+    const [user, setUser] = useState({
+        username: '', 
+        token: '', 
+        id: ''    
+    })
+
 
     return (
-        <UserContext.Provider value={{user: user, setUser: setUser}}>
+        <UserContext.Provider value={
+            {user: user, 
+            setUser: setUser}}>
             {props.children}
         </UserContext.Provider>
     )
