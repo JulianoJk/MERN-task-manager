@@ -10,6 +10,7 @@ const Profile = () => {
     const value = useContext(UserContext)
     const [currentUser, setCurrentUser] = useState(value.user)
     
+
     //TODO: If there is no user, navigate to login
     if(currentUser===''){
         alert('No user!')        
@@ -18,7 +19,7 @@ const Profile = () => {
     useEffect(() => {
 
         console.log(currentUser)
-    })
+    }, [currentUser])
 
     return (
         <div>

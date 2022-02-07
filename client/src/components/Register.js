@@ -28,26 +28,9 @@ const Register = () => {
         setConfirmPassword(event.target.value);
     }
 
-    const handleInputs = e=>{
-        e.preventDefault();
-        //Check if email is null
-        // TODO: add more characters as for the limit
-        if (email.length!== 0){
-            // Check if passwords match and they are not null
-            if(password === confirmPassword && confirmPassword.length!=0){
-                submit();   
-            }else{
-                // TODO: Fix this
-                alert("Passwords do not match!");
-            }
-        }else{
-            // TODO: Fix this
-            console.log("Email can not be null");
-        }
-    }
-
-    const submit = async (event) => {
-
+    const handleInputs = async (event) => {
+        // prevent the default form action
+        event.preventDefault();
         const response = await fetch('http://localhost:3001/users/register', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -58,34 +41,44 @@ const Register = () => {
                 "passwordRepeat":confirmPassword
             })
         })
-        const data = await response.json()
-        console.log(data)
-        //Set user name, token(extracted from the json)
-        //TODO: Change
-        setUser({      
+
+        const data = await response.json();
+        console.log(data);
+        // check if status code is ok
+         if(response.ok == true){
+            //Set user name, token(extracted from the json), and id
+            setUser({      
             "username": name,
             "token": data.token,
             "id": data._id
         })
-
-        alert("Submited!")
-        navigate('/profile')
+            //TODO: Change
+            alert("Submitted")
+            //  After everything is okay, navigate to the user's home
+            navigate('/home');
+            console.log(data);  
+        // If response is not okay, alert the client with the message response  
+        }else if(response.ok ==false){
+            console.warn(data.message);
+            alert(data.message)
+        }
     }
-
     return (
 
-        <div className="container flex-column" style={{width: "50%"}}>
+        <div className="container flex-column" style={{ width: "50%" }}>
             <h1>Register</h1>
-            <form onSubmit={handleInputs}>
-                {/*Email Input*/}
+            <form onSubmit={ handleInputs }>
+                
+                {/*Email Input, required with minimum length of 8 characters*/}
+
                 <label htmlFor="email" className="control-label text"><strong>Email:</strong></label>
                 <input type="email" className="form-control" id="email" placeholder="name@example.com" onChange={onEmailChange}
                 required minLength="8"/>
                 <br />
-                {/* TODO: Add onChange for the name */}
+
                 <label htmlFor="Username" className="control-label text"><strong>Username:</strong></label>
                 <input type="text" className="form-control" id="Username" placeholder="John Smith"
-                onChange={onNameChange} />
+                onChange={ onNameChange } />
                 <br />
 
                 <label htmlFor="password" className="control-label text" ><strong>Password:</strong></label>
@@ -101,7 +94,8 @@ const Register = () => {
                 <button className="btn btn-success flex-wrap">Submit</button>
                 </div>
             </form>
-            {/* links to login */}
+ 
+            {/* link to login */}
             <a href="/login" className="text flex-wrap link-light" >Already a member?</a>
         </div>
     )

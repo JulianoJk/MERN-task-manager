@@ -25,12 +25,10 @@ const Login = () => {
         navigate('./Register.js')
     }
 
-    const handleInputs = e=>{
-        e.preventDefault()
-        submit()
-    }
-    const submit = async (event) => {
-
+    const handleInputs = async (event) => {
+        // prevent the default form action
+        event.preventDefault();
+        
         const response  = await fetch('http://localhost:3001/users/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -39,12 +37,25 @@ const Login = () => {
                 "password": password
             })
         })
+
+
+
+        //save the json response to data variable
         const data = await response.json()
-        console.log(data)
-        const user = {username: data['username'], token: data['token']}
-        value.setUser(user)
-        navigate('/profile')
+        console.log(data);
+
+        // check if status code is ok
+        if(response.ok == true){
+            const user = {username: data['username'], token: data['token']}
+            value.setUser(user)
+            navigate('/profile')
+        // If response is not okay, alert the client with the message response  
+        }else if(response.ok ==false){
+            console.warn(data.message);
+            alert(data.message)
+        }
     }
+
 
     return (
         <div className="container flex-column" style={{width: "50%"}}>
