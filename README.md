@@ -28,8 +28,8 @@ Now type inside the .env file
  * The port number as `PORT = {port number}`
  * The link to connect with the MongoDB Atlas as `MONGO_CONN = mongodb+srv://<username>:<password>@cluster0.jnw32.mongodb.net/<Database Name>?retryWrites=true&w=majority`
  * The signature key as `JWT_KEY= <your signature key>`
-
 Or just check the .env_sample, copy all, then change the needed fields
+
 ---
 **NOTE**
 
