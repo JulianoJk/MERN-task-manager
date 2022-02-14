@@ -1,6 +1,8 @@
-import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { UserContext } from "../context/ContextProvider"
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/ContextProvider";
+import { Button } from "../Button/Button";
+
 
 
 
@@ -20,10 +22,6 @@ const Login = () => {
         setPassword(event.target.value)
     }
 
-    //In case the user wants to register
-    const navigateRegister=()=>{
-        navigate('./Register.js')
-    }
 
     const handleInputs = async (event) => {
         // prevent the default form action
@@ -48,7 +46,7 @@ const Login = () => {
         if(response.ok == true){
             const user = {username: data['username'], token: data['token']}
             value.setUser(user)
-            navigate('/profile')
+            navigate('/home')
         // If response is not okay, alert the client with the message response  
         }else if(response.ok ==false){
             console.warn(data.message);
@@ -70,7 +68,7 @@ const Login = () => {
                 <input type="password" className="form-control" id="password" onChange={onPasswordChange} placeholder="Password"/>
                 <br />
                 <div className="d-grid gap-2">
-                <button className="btn btn-success flex-wrap ">Submit</button>
+                    <Button text={"Submit"} />
                 </div>
             </form>
             
