@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextProvider";
 import { useReducer } from "react";
 import { Button } from "../Button/Button";
-const Register = () => {
 
+
+// Initialized state for every state needed
 const initState = {
   email: "",
   name: "",
@@ -12,6 +13,8 @@ const initState = {
   confirmPassword: "",
 };
 
+// reducer function needed for the useReducer
+// Depending on which action type is called, set the value of the state
 const reducer = (state, action) => {
   switch (action.type) {
     case "setEmail":
@@ -25,7 +28,9 @@ const reducer = (state, action) => {
     default:
       return { ...state };
   }
-};
+}; 
+
+const Register = () => {
 
   const navigate = useNavigate();
 

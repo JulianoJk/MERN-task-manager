@@ -1,4 +1,0 @@
-# Simple Todo List client
-
-
-

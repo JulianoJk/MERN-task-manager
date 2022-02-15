@@ -1,25 +1,38 @@
-import { useContext, useState } from "react";
+import { useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextProvider";
 import { Button } from "../Button/Button";
 
+const initState = {
+    email: "",
+    password: ""
+}   
 
-
+const reducer = (state, action) =>{
+    switch(action.type){
+        case "GET_EMAIL":
+            return { ...state, email: action.email };
+        case "GET_PASSWORD":
+            return {...state, password: action.password}
+        default:
+            return{...state}
+    }
+}
 
 const Login = () => {
 
     const navigate = useNavigate()
     const value = useContext(UserContext)
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [state, dispatch] = useReducer(reducer, initState);
 
+    //Set the action type and the value for the useReducer 
     const onEmailChange = (event) => {
-        setEmail(event.target.value)
+        dispatch({type: "GET_EMAIL", email: event.target.value})
     }
 
     const onPasswordChange = (event) => {
-        setPassword(event.target.value)
+        dispatch({type: "GET_PASSWORD", password: event.target.value})
     }
 
 
@@ -31,8 +44,9 @@ const Login = () => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                "email": email,
-                "password": password
+                // set the email and password from the state 
+                "email": state.email,
+                "password": state.password
             })
         })
 
@@ -46,7 +60,7 @@ const Login = () => {
         if(response.ok == true){
             const user = {username: data['username'], token: data['token']}
             value.setUser(user)
-            navigate('/home')
+            navigate('/profile')
         // If response is not okay, alert the client with the message response  
         }else if(response.ok ==false){
             console.warn(data.message);

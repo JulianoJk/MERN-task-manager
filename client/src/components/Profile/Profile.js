@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router"
-import { UserContext } from "../context/ContextProvider"
+import { UserContext } from "../../context/ContextProvider"
 
 const Profile = () => {
 
