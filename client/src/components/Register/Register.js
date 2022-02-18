@@ -65,24 +65,30 @@ const Register = () => {
         passwordRepeat: state.confirmPassword,
       }),
     });
+
       
     const data = await response.json();
-    console.log(data);
     // check if status code is ok
     if (response.ok == true) {
-        //Set user name, token(extracted from the json), and id
+
+      //Set user name, token(extracted from the json), and id
       // setUser({
       //   username: data.name,
       //   token: data.token,
       //   id: data._id,
       // });
 
-      // Set the state of user context
-      userState.dispatch({type: "setUser", username: state.username, token: state.token, id: state.id});
+      // Set the state of user context through the values extracted from the server
+      userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['_id']})
+      // Change the boolean of the user's login to true
+      userState.dispatch({type: "setStatus", isLoggedIn: true })
 
+
+      
       //TODO: Change
       alert("Submitted");
       //  After everything is okay, navigate to the user's home
+
       navigate("/home");
       console.log(data);
       // If response is not okay, alert the client with the message response

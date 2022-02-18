@@ -21,8 +21,8 @@ const reducer = (state, action) =>{
         // If the setUser is called in a dispatch and the type has setUser, given the data that are passed, update the variables
         case "setUser":
             return { ...state, username: action.username, token: action.token, id: action.id };
-        case "setLogIn":
-            return {...state, token: action.token}
+        case "setStatus":
+            return {...state, isLoggedIn: action.isLoggedIn}
         default:
             return{...state}
     }
