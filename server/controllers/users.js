@@ -76,8 +76,14 @@ router.post("/register", async (req, res) => {
         const newUser = new User({
             email: email,
             password: passwordHashed,
-            username: username,
+            username: username
+            
         })
+        
+        // User created, generate JWT
+        const token = jwt.sign({newUser}, process.env.JWT_KEY)
+        res.json(token)
+
         const saved = await newUser.save()
         res.json(saved)
     }

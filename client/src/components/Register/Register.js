@@ -34,7 +34,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const { user, setUser } = useContext(UserContext);
+  const userState = useContext(UserContext);
 
   const [state, dispatch] = useReducer(reducer, initState);
 
@@ -52,6 +52,7 @@ const Register = () => {
   const handleConfirmPassword = (event) => {
     dispatch( { type: "setConfirmPassword", confirmPassword: event.target.value } );  
   };
+  
   const handleInputs = async (event) => {
     event.preventDefault();
     const response = await fetch("http://localhost:3001/users/register", {
@@ -69,12 +70,16 @@ const Register = () => {
     console.log(data);
     // check if status code is ok
     if (response.ok == true) {
-      //Set user name, token(extracted from the json), and id
-      setUser({
-        username: data.name,
-        token: data.token,
-        id: data._id,
-      });
+        //Set user name, token(extracted from the json), and id
+      // setUser({
+      //   username: data.name,
+      //   token: data.token,
+      //   id: data._id,
+      // });
+
+      // Set the state of user context
+      userState.dispatch({type: "setUser", username: state.username, token: state.token, id: state.id});
+
       //TODO: Change
       alert("Submitted");
       //  After everything is okay, navigate to the user's home

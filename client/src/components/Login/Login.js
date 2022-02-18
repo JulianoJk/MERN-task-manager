@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextProvider";
 import { Button } from "../Button/Button";
 
+
 const initState = {
     email: "",
     password: ""
@@ -22,9 +23,11 @@ const reducer = (state, action) =>{
 const Login = () => {
 
     const navigate = useNavigate()
-    const value = useContext(UserContext)
+    // Get the context of the user's info
 
-    const [state, dispatch] = useReducer(reducer, initState);
+    const userState = useContext(UserContext)
+    
+    const [state, dispatch] = useReducer(reducer, initState);   
 
     //Set the action type and the value for the useReducer 
     const onEmailChange = (event) => {
@@ -58,9 +61,10 @@ const Login = () => {
 
         // check if status code is ok
         if(response.ok == true){
-            const user = {username: data['username'], token: data['token']}
-            value.setUser(user)
-            navigate('/profile')
+            // Set the state of user context through the values extracted from the server
+            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id']})
+
+            navigate('/home')
         // If response is not okay, alert the client with the message response  
         }else if(response.ok ==false){
             console.warn(data.message);
