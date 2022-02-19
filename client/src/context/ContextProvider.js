@@ -21,8 +21,7 @@ const reducer = (state, action) =>{
         // If the setUser is called in a dispatch and the type has setUser, given the data that are passed, update the variables
         case "setUser":
             return { ...state, username: action.username, token: action.token, id: action.id };
-        case "setStatus":
-            return {...state, isLoggedIn: action.isLoggedIn}
+
         default:
             return{...state}
     }
@@ -32,6 +31,22 @@ const ContextProvider = (props) => {
     
     const [globalState, dispatch] = useReducer(reducer, userState)
 
+
+
+
+    
+    // Save token to localStorage
+    const handleTokenLogin = () => {
+        localStorage.setItem('token', token);
+     };
+
+
+    // Remove token from localStorage
+    const handleTokenLogout = () => {
+        localStorage.removeItem('token');
+    };
+
+
     // Convert the variable into a boolean, returning either true or false
     // If token is an empty string, returns false, otherwise true
     const userIsLoggedIn = !!globalState.token;
@@ -39,17 +54,32 @@ const ContextProvider = (props) => {
     // Handle the token when the user logs in/register
     const loginHandler = (token) => {
         setToken(token);
+        // Call the function to save the token
+        handleTokenLogin();
+
       };
     
       const logoutHandler = () => {
         setToken(null);
+        handleTokenLogout();
       };
 
+    //   Set the states of the values from the useReducer
+    const contextValues ={
+    username: globalState.username, 
+    token: globalState.token, 
+    id: globalState.id,
+    // Apply the boolean from the userIsLoggedIn
+    isLoggedIn: userIsLoggedIn,
+    // change the login state
+    login: loginHandler,
+    logout: logoutHandler
+    }
 
     return (
 
-        <UserContext.Provider value={{globalState, dispatch}}>
-            {props.children}
+        <UserContext.Provider value={{contextValues, dispatch}}>            
+        {props.children}
         </UserContext.Provider>
     )
 }

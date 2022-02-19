@@ -20,7 +20,7 @@ const Home = () => {
         }
 
         const show = () =>{
-            console.log(globalState.globalState);
+            console.log(globalState.contextValues);
         }
 
     return (

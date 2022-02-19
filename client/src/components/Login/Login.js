@@ -67,10 +67,7 @@ const Login = () => {
         if(response.ok == true){
             
             // Set the state of user context through the values extracted from the server
-            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id'], isLoggedIn: true})
-
-            userState.dispatch({type: "setStatus", isLoggedIn: true})
-
+            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id']})
             navigate('/home')
         // If response is not okay, alert the client with the message response  
         }else if(response.ok ==false){
