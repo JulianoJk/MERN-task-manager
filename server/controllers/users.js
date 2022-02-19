@@ -54,6 +54,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", async (req, res) => {
     try {
+        
         let {email, password, passwordRepeat, username} = req.body
         // Validations 
         if(!email || !password || !passwordRepeat) {
