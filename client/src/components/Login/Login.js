@@ -62,7 +62,6 @@ const Login = () => {
 
         //save the json response to data variable
         const data = await response.json()
-        console.log(data.id);
 
         // check if status code is ok
         if(response.ok == true){

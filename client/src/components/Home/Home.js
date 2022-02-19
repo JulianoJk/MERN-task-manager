@@ -28,7 +28,7 @@ const Home = () => {
                 <h1>
                     Home
                 </h1>
-            <Button event={show} text ={"Get Tasks"} />
+            <Button event={show} text ={"Console log user info"} />
         </div>
     )
 }
