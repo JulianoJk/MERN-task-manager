@@ -4,6 +4,7 @@ import { UserContext } from "../../context/ContextProvider";
 import { Button } from "../Button/Button";
 
 
+
 const initState = {
     email: "",
     password: ""
@@ -47,9 +48,13 @@ const Login = () => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
+
                 // set the email and password from the state 
+
                 "email": state.email,
+                
                 "password": state.password
+                
             })
         })
 
@@ -57,17 +62,15 @@ const Login = () => {
 
         //save the json response to data variable
         const data = await response.json()
-        console.log(data);
+        console.log(data.id);
 
         // check if status code is ok
         if(response.ok == true){
             
             // Set the state of user context through the values extracted from the server
-            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id']})
+            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id'], isLoggedIn: true})
 
-            // Change the boolean of the user's login to true
-            userState.dispatch({type: "setStatus", isLoggedIn: true })
-    
+            userState.dispatch({type: "setStatus", isLoggedIn: true})
 
             navigate('/home')
         // If response is not okay, alert the client with the message response  

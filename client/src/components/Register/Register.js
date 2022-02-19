@@ -71,17 +71,14 @@ const Register = () => {
     // check if status code is ok
     if (response.ok == true) {
 
-      //Set user name, token(extracted from the json), and id
-      // setUser({
-      //   username: data.name,
-      //   token: data.token,
-      //   id: data._id,
-      // });
-
       // Set the state of user context through the values extracted from the server
       userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['_id']})
+
       // Change the boolean of the user's login to true
       userState.dispatch({type: "setStatus", isLoggedIn: true })
+
+      // set the token to the login function  
+      userState.dispatch({type: "setLogIn", login: data.token})
 
 
       

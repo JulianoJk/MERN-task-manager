@@ -36,12 +36,13 @@ router.post("/login", async (req, res) => {
         }
 
         //Assign the token to the user
-        jwt.sign({id: user._id}, process.env.JWT_KEY,
+        const token = jwt.sign({id: user._id}, process.env.JWT_KEY,
             (err, token) => {
                 if (err) throw err
                 res.json({
                     token,
-                    username: user.username
+                    username: user.username,
+                    id: user._id
                 })
             }
         )

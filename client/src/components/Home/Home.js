@@ -6,6 +6,7 @@ const Home = () => {
 
         const  globalState  = useContext(UserContext)
 
+
         //get all the tasks from the server
         const getTasks = async()=>{
             const response = await fetch('http://localhost:3001/tasks',{
@@ -19,7 +20,7 @@ const Home = () => {
         }
 
         const show = () =>{
-            console.log(globalState.globalState );
+            console.log(globalState.globalState);
         }
 
     return (
