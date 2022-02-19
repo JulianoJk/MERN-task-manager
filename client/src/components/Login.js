@@ -46,9 +46,18 @@ const Login = () => {
 
         // check if status code is ok
         if(response.ok == true){
+<<<<<<< Updated upstream:client/src/components/Login.js
             const user = {username: data['username'], token: data['token']}
             value.setUser(user)
             navigate('/profile')
+=======
+            
+            // Set the state of user context through the values extracted from the server
+            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id']})
+
+
+            navigate('/home')
+>>>>>>> Stashed changes:client/src/components/Login/Login.js
         // If response is not okay, alert the client with the message response  
         }else if(response.ok ==false){
             console.warn(data.message);
