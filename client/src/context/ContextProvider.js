@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React, { useReducer} from 'react'
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 export const UserContext = React.createContext()
 =======
+=======
+>>>>>>> 72510c7299e099ee5e62e39f174bbc6cbfc97f9e
 // Initial state for the user info along with the status 
 const userState = {
     username: '', 
@@ -24,10 +27,16 @@ const reducer = (state, action) =>{
         // If the setUser is called in a dispatch and the type has setUser, given the data that are passed, update the variables
         case "setUser":
             return { ...state, username: action.username, token: action.token, id: action.id };
+<<<<<<< HEAD
+=======
+        case "setStatus":
+            return {...state, isLoggedIn: action.isLoggedIn}
+>>>>>>> 72510c7299e099ee5e62e39f174bbc6cbfc97f9e
         default:
             return{...state}
     }
 }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
 
 
@@ -47,6 +56,25 @@ const ContextProvider = (props) => {
     const handleTokenLogin = () => {
         localStorage.setItem('token', token);
      };
+=======
+
+const ContextProvider = (props) => {
+    
+    const [globalState, dispatch] = useReducer(reducer, userState)
+
+    // Convert the variable into a boolean, returning either true or false
+    // If token is an empty string, returns false, otherwise true
+    const userIsLoggedIn = !!globalState.token;
+
+    // Handle the token when the user logs in/register
+    const loginHandler = (token) => {
+        setToken(token);
+      };
+    
+      const logoutHandler = () => {
+        setToken(null);
+      };
+>>>>>>> 72510c7299e099ee5e62e39f174bbc6cbfc97f9e
 
     // Remove token from localStorage
     const handleTokenLogout = () => {
@@ -84,6 +112,7 @@ const ContextProvider = (props) => {
       }
 
     return (
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         <UserContext.Provider value={
             {user: user, 
@@ -92,6 +121,10 @@ const ContextProvider = (props) => {
 
         <UserContext.Provider value={{contextValues, dispatch}}>
 >>>>>>> Stashed changes
+=======
+
+        <UserContext.Provider value={{globalState, dispatch}}>
+>>>>>>> 72510c7299e099ee5e62e39f174bbc6cbfc97f9e
             {props.children}
         </UserContext.Provider>
     )

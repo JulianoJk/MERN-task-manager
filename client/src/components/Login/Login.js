@@ -1,29 +1,44 @@
-import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { UserContext } from "../context/ContextProvider"
+import { useContext, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/ContextProvider";
+import { Button } from "../Button/Button";
 
 
+
+const initState = {
+    email: "",
+    password: ""
+}   
+
+const reducer = (state, action) =>{
+    switch(action.type){
+        case "GET_EMAIL":
+            return { ...state, email: action.email };
+        case "GET_PASSWORD":
+            return {...state, password: action.password}
+        default:
+            return{...state}
+    }
+}
 
 const Login = () => {
 
     const navigate = useNavigate()
-    const value = useContext(UserContext)
+    // Get the context of the user's info
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const userState = useContext(UserContext)
+    
+    const [state, dispatch] = useReducer(reducer, initState);   
 
+    //Set the action type and the value for the useReducer 
     const onEmailChange = (event) => {
-        setEmail(event.target.value)
+        dispatch({type: "GET_EMAIL", email: event.target.value})
     }
 
     const onPasswordChange = (event) => {
-        setPassword(event.target.value)
+        dispatch({type: "GET_PASSWORD", password: event.target.value})
     }
 
-    //In case the user wants to register
-    const navigateRegister=()=>{
-        navigate('./Register.js')
-    }
 
     const handleInputs = async (event) => {
         // prevent the default form action
@@ -33,8 +48,13 @@ const Login = () => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                "email": email,
-                "password": password
+
+                // set the email and password from the state 
+
+                "email": state.email,
+                
+                "password": state.password
+                
             })
         })
 
@@ -42,10 +62,10 @@ const Login = () => {
 
         //save the json response to data variable
         const data = await response.json()
-        console.log(data);
 
         // check if status code is ok
         if(response.ok == true){
+<<<<<<< HEAD:client/src/components/Login.js
 <<<<<<< Updated upstream:client/src/components/Login.js
             const user = {username: data['username'], token: data['token']}
             value.setUser(user)
@@ -58,6 +78,15 @@ const Login = () => {
 
             navigate('/home')
 >>>>>>> Stashed changes:client/src/components/Login/Login.js
+=======
+            
+            // Set the state of user context through the values extracted from the server
+            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id'], isLoggedIn: true})
+
+            userState.dispatch({type: "setStatus", isLoggedIn: true})
+
+            navigate('/home')
+>>>>>>> 72510c7299e099ee5e62e39f174bbc6cbfc97f9e:client/src/components/Login/Login.js
         // If response is not okay, alert the client with the message response  
         }else if(response.ok ==false){
             console.warn(data.message);
@@ -79,7 +108,7 @@ const Login = () => {
                 <input type="password" className="form-control" id="password" onChange={onPasswordChange} placeholder="Password"/>
                 <br />
                 <div className="d-grid gap-2">
-                <button className="btn btn-success flex-wrap ">Submit</button>
+                    <Button text={"Submit"} />
                 </div>
             </form>
             

@@ -20,7 +20,11 @@ const Home = () => {
         }
 
         const show = () =>{
+<<<<<<< HEAD
             console.log(globalState.contextValues);
+=======
+            console.log(globalState.globalState);
+>>>>>>> 72510c7299e099ee5e62e39f174bbc6cbfc97f9e
         }
 
     return (

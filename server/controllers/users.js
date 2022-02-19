@@ -30,16 +30,22 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({message: "User not found"})
         }
         const passwordsMatch = await bcrypt.compare(password, user.password) 
+
         if(!passwordsMatch) {
             return res.status(400).json({message: "Wrong password"})
         }
 
-        // User ok, generate JWT
-        const token = jwt.sign({id: user._id}, process.env.JWT_KEY)
-        res.json({
-            token,
-            username: user.username
-        })
+        //Assign the token to the user
+        const token = jwt.sign({id: user._id}, process.env.JWT_KEY,
+            (err, token) => {
+                if (err) throw err
+                res.json({
+                    token,
+                    username: user.username,
+                    id: user._id
+                })
+            }
+        )
     }
     catch(err) {
         return res.status(500).json({error: err.message})
@@ -76,15 +82,28 @@ router.post("/register", async (req, res) => {
         const newUser = new User({
             email: email,
             password: passwordHashed,
-            username: username,
+            username: username
+            
         })
-        const saved = await newUser.save()
-        res.json(saved)
+
+
+        const userSignup = await newUser.save()
+        const payload = {
+            user: {
+              id: userSignup.id
+            }
+          };
+
+          //Assign the token to the user
+        const token = jwt.sign(payload,process.env.JWT_KEY)
+        res.json({
+            token,
+            userSignup
+          });
     }
     catch(err) {
         return res.status(500).json({error: err.message})
     }
 
 })
-
 module.exports = router

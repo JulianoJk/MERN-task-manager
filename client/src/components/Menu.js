@@ -8,11 +8,11 @@ const Menu = () => {
                 <a href="/" className="btn btn-outline-primary text-light text-opacity-75">Index</a>                 
                 <a href="/home" className="btn btn-outline-primary text-light text-opacity-75">Home </a> 
 
-                <a href='/profile/' className="btn btn-outline-primary text-white text-opacity-75" >Profile </a> 
+                <a href='/profile' className="btn btn-outline-primary text-white text-opacity-75" >Profile </a> 
 
-                <a href='/login/' className="btn btn-outline-primary text-info">Login </a> 
+                <a href='/login' className="btn btn-outline-primary text-info">Login </a> 
 
-                <a href='/register/' className="btn btn-primary bg-info text-white">Register</a>
+                <a href='/register' className="btn btn-primary bg-info text-white">Register</a>
             </div>
 
         </div>
