@@ -25,6 +25,7 @@ const Home = () => {
             console.log(globalState.contextValues);
         }
 
+        
         const {isLoggedIn} = globalState.contextValues;
 
         // Check is user is logged, if not display message, if yes proceed.

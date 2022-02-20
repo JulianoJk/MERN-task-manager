@@ -63,12 +63,6 @@ const ContextProvider = (props) => {
         handleTokenLogout();
       };
 
-      const localStorageHandler = () =>{
-            //TODO:Not sure, check if needs to be removed
-            // store the user in localStorage
-            const saveToLocalStorage = localStorage.setItem('userToken', globalState)
-
-      }
 
 
 
@@ -88,22 +82,12 @@ const ContextProvider = (props) => {
 
     
 
-    //Check if user is logged in. If not, warn user to login or register in order to continue
-    // TODO: Change in order to check only if user navigates to home or profile
     useEffect(() => {
-        // Destructure the "isLoggedIn" from the context provider
-        const {isLoggedIn} = contextValues;
-  
-        if (!isLoggedIn) {
-            console.info("User is not logged!!");
-            
-        }else if(isLoggedIn){
-            console.info("User logged!!");
-            
-            
-            
-        }
-    }, []);
+        // storing user's token
+        localStorage.setItem("userToken", JSON.stringify(contextValues.token));
+        
+        }, [contextValues.token]);
+        
 
     return (
 

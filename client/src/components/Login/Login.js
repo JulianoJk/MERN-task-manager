@@ -1,4 +1,4 @@
-import { useContext, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextProvider";
 import { Button } from "../Button/Button";
@@ -21,6 +21,9 @@ const reducer = (state, action) =>{
     }
 }
 
+
+
+
 const Login = () => {
 
     const navigate = useNavigate()
@@ -29,6 +32,7 @@ const Login = () => {
     const userState = useContext(UserContext)
     
     const [state, dispatch] = useReducer(reducer, initState);   
+
 
     //Set the action type and the value for the useReducer 
     const onEmailChange = (event) => {
@@ -70,9 +74,7 @@ const Login = () => {
             // Set the state of user context through the values extracted from the server
             userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id'] })
 
-
-
-
+            
             navigate('/home')
     
         // If response is not okay, alert the client with the message response  
@@ -81,6 +83,7 @@ const Login = () => {
             alert(data.message)
         }
     }
+
 
 
     return (

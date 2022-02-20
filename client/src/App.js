@@ -14,8 +14,8 @@ function App() {
   return (
     <div>
       <ContextProvider>
-        <Menu />
         <BrowserRouter>
+        <Menu />
           <Routes>
             <Route exact path="/" element={<Index />} />
             <Route path="/home" element={<Home />} />
