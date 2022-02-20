@@ -90,7 +90,7 @@ router.post("/register", async (req, res) => {
         const userSignup = await newUser.save()
         const payload = {
             user: {
-              id: userSignup.id
+              id: userSignup._id
             }
           };
 
@@ -98,7 +98,8 @@ router.post("/register", async (req, res) => {
         const token = jwt.sign(payload,process.env.JWT_KEY)
         res.json({
             token,
-            userSignup
+            username: userSignup.username,
+            id: userSignup._id
           });
     }
     catch(err) {

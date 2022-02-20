@@ -31,9 +31,6 @@ const ContextProvider = (props) => {
     
     const [globalState, dispatch] = useReducer(reducer, userState)
 
-
-
-
     
     // Save token to localStorage
     const handleTokenLogin = () => {
@@ -66,14 +63,14 @@ const ContextProvider = (props) => {
 
     //   Set the states of the values from the useReducer
     const contextValues ={
-    username: globalState.username, 
-    token: globalState.token, 
-    id: globalState.id,
-    // Apply the boolean from the userIsLoggedIn
-    isLoggedIn: userIsLoggedIn,
-    // change the login state
-    login: loginHandler,
-    logout: logoutHandler
+        username: globalState.username, 
+        token: globalState.token, 
+        id: globalState.id,
+        // Apply the boolean from the userIsLoggedIn
+        isLoggedIn: userIsLoggedIn,
+        // change the login state
+        login: loginHandler,
+        logout: logoutHandler
     }
 
     return (

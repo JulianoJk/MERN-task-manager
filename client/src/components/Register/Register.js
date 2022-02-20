@@ -68,11 +68,12 @@ const Register = () => {
 
       
     const data = await response.json();
+
     // check if status code is ok
     if (response.ok == true) {
 
       // Set the state of user context through the values extracted from the server
-      userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['_id']})
+      userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id']})
 
       // Change the boolean of the user's login to true
       userState.dispatch({type: "setStatus", isLoggedIn: true })
@@ -80,14 +81,15 @@ const Register = () => {
       // set the token to the login function  
       userState.dispatch({type: "setLogIn", login: data.token})
 
-
       
       //TODO: Change
       alert("Submitted");
       //  After everything is okay, navigate to the user's home
 
       navigate("/home");
+
       console.log(data);
+      
       // If response is not okay, alert the client with the message response
     }else if (response.ok == false) {
         console.warn(data.message);
