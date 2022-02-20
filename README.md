@@ -15,6 +15,7 @@ $ npm start
 ### Back-End(server)
 ```
 $ cd ../server
+$ npm i mongoose 
 $ npm install update
 $ node server.js
 
@@ -39,5 +40,6 @@ As for the signature key, you can find random signature keys generators online a
 An example is "https://randomkeygen.com/" or "https://keygen.io/" 
 
 ---
+
 
 
