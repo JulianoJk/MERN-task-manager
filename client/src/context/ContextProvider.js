@@ -1,4 +1,4 @@
-import React, { useReducer} from 'react'
+import React, { useEffect, useReducer} from 'react'
 
 // Initial state for the user info along with the status 
 const userState = {
@@ -27,6 +27,8 @@ const reducer = (state, action) =>{
     }
 }
 
+
+
 const ContextProvider = (props) => {
     
     const [globalState, dispatch] = useReducer(reducer, userState)
@@ -43,10 +45,10 @@ const ContextProvider = (props) => {
         localStorage.removeItem('token');
     };
 
-
     // Convert the variable into a boolean, returning either true or false
     // If token is an empty string, returns false, otherwise true
-    const userIsLoggedIn = !!globalState.token;
+    let userIsLoggedIn= !!globalState.token;
+        
 
     // Handle the token when the user logs in/register
     const loginHandler = (token) => {
@@ -61,6 +63,16 @@ const ContextProvider = (props) => {
         handleTokenLogout();
       };
 
+      const localStorageHandler = () =>{
+            //TODO:Not sure, check if needs to be removed
+            // store the user in localStorage
+            const saveToLocalStorage = localStorage.setItem('userToken', globalState)
+
+      }
+
+
+
+
     //   Set the states of the values from the useReducer
     const contextValues ={
         username: globalState.username, 
@@ -70,13 +82,33 @@ const ContextProvider = (props) => {
         isLoggedIn: userIsLoggedIn,
         // change the login state
         login: loginHandler,
-        logout: logoutHandler
+        logout: logoutHandler,
+        
     }
+
+    
+
+    //Check if user is logged in. If not, warn user to login or register in order to continue
+    // TODO: Change in order to check only if user navigates to home or profile
+    useEffect(() => {
+        // Destructure the "isLoggedIn" from the context provider
+        const {isLoggedIn} = contextValues;
+  
+        if (!isLoggedIn) {
+            console.info("User is not logged!!");
+            
+        }else if(isLoggedIn){
+            console.info("User logged!!");
+            
+            
+            
+        }
+    }, []);
 
     return (
 
         <UserContext.Provider value={{contextValues, dispatch}}>            
-        {props.children}
+            {props.children}
         </UserContext.Provider>
     )
 }
