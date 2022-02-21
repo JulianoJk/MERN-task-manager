@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer} from 'react'
+import React, { useEffect, useReducer, useState} from 'react'
 
 // Initial state for the user info along with the status 
 const userState = {
@@ -7,9 +7,8 @@ const userState = {
     id: '',
     // Default state for the user's state(login)
     isLoggedIn: false,
-    // change the login state
     login: (token) => {},
-    logout: () => {}
+    logout: ()=>{}
 }
 
 // Create userContext and pass as default the userState
@@ -35,37 +34,23 @@ const ContextProvider = (props) => {
 
     
     // Save token to localStorage
-    const handleTokenLogin = () => {
-        localStorage.setItem('token', token);
-     };
+    const loginHandler = (tokenData) => {
+        localStorage.setItem("userToken", JSON.stringify(tokenData));
+        
+    };
 
-
-    // Remove token from localStorage
-    const handleTokenLogout = () => {
-        localStorage.removeItem('token');
+    // Handle log out
+    const logoutHandler = () => {        
+        globalState.token = null
+        localStorage.removeItem('userToken');
+        globalState.isLoggedIn = false;
+        console.log(globalState.token );
     };
 
     // Convert the variable into a boolean, returning either true or false
     // If token is an empty string, returns false, otherwise true
     let userIsLoggedIn= !!globalState.token;
         
-
-    // Handle the token when the user logs in/register
-    const loginHandler = (token) => {
-        setToken(token);
-        // Call the function to save the token
-        handleTokenLogin();
-
-      };
-    
-      const logoutHandler = () => {
-        setToken(null);
-        handleTokenLogout();
-      };
-
-
-
-
 
     //   Set the states of the values from the useReducer
     const contextValues ={
@@ -74,20 +59,10 @@ const ContextProvider = (props) => {
         id: globalState.id,
         // Apply the boolean from the userIsLoggedIn
         isLoggedIn: userIsLoggedIn,
-        // change the login state
         login: loginHandler,
-        logout: logoutHandler,
-        
+        logout: logoutHandler
     }
 
-    
-
-    useEffect(() => {
-        // storing user's token
-        localStorage.setItem("userToken", JSON.stringify(contextValues.token));
-        
-        }, [contextValues.token]);
-        
 
     return (
 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextProvider";
 import { Button } from "../Button/Button";
 
@@ -22,25 +22,23 @@ const reducer = (state, action) =>{
 }
 
 
-
-
 const Login = () => {
 
     const navigate = useNavigate()
     // Get the context of the user's info
 
-    const userState = useContext(UserContext)
+    const {contextValues, dispatch} = useContext(UserContext)
     
-    const [state, dispatch] = useReducer(reducer, initState);   
+    const [state, formDispatch] = useReducer(reducer, initState);   
 
 
     //Set the action type and the value for the useReducer 
     const onEmailChange = (event) => {
-        dispatch({type: "GET_EMAIL", email: event.target.value})
+        formDispatch({type: "GET_EMAIL", email: event.target.value})
     }
 
     const onPasswordChange = (event) => {
-        dispatch({type: "GET_PASSWORD", password: event.target.value})
+        formDispatch({type: "GET_PASSWORD", password: event.target.value})
     }
 
 
@@ -72,8 +70,9 @@ const Login = () => {
 
             
             // Set the state of user context through the values extracted from the server
-            userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id'] })
-
+            dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id'] })
+            
+            contextValues.login(data['token']);
             
             navigate('/home')
     
@@ -104,9 +103,9 @@ const Login = () => {
             </form>
             
             {/* Links to change password or register */}
-            <a href="/password-reset" className="text flex-wrap link-light" >Forgot your password?</a>
+            <Link to="/password-reset" className="text flex-wrap link-light" >Forgot your password?</Link>
             <br />
-            <a href="/register" className="text flex-wrap link-light" >Not a member?</a>
+            <Link to="/register" className="text flex-wrap link-light" >Not a member?</Link>
         </div>
     )
 }

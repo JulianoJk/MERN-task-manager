@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextProvider";
 import { useReducer } from "react";
 import { Button } from "../Button/Button";
@@ -33,26 +33,27 @@ const reducer = (state, action) => {
 const Register = () => {
 
   const navigate = useNavigate();
+  
+  const {contextValues, dispatch} = useContext(UserContext)
 
-  const userState = useContext(UserContext);
-
-  const [state, dispatch] = useReducer(reducer, initState);
+  const [state, formDispatch] = useReducer(reducer, initState);
 
   const onEmailChange = (event) => {
-    dispatch( { type: "setEmail", email: event.target.value } );
+    formDispatch( { type: "setEmail", email: event.target.value } );
   };
   const onNameChange = (event) => {
-    dispatch( { type: "setName", name: event.target.value } );  
+    formDispatch( { type: "setName", name: event.target.value } );  
   };
 
   const handlePassword = (event) => {
-    dispatch( { type: "setPassword", password: event.target.value } );  
+    formDispatch( { type: "setPassword", password: event.target.value } );  
   };
 
   const handleConfirmPassword = (event) => {
-    dispatch( { type: "setConfirmPassword", confirmPassword: event.target.value } );  
+    formDispatch( { type: "setConfirmPassword", confirmPassword: event.target.value } );  
   };
-  
+
+
   const handleInputs = async (event) => {
     event.preventDefault();
     const response = await fetch("http://localhost:3001/users/register", {
@@ -73,17 +74,20 @@ const Register = () => {
     if (response.ok == true) {
 
       // Set the state of user context through the values extracted from the server
-      userState.dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id']})
+      dispatch({type: "setUser", username: data['username'], token: data['token'], id: data['id']})
 
       // Change the boolean of the user's login to true
-      userState.dispatch({type: "setStatus", isLoggedIn: true })
+      dispatch({type: "setStatus", isLoggedIn: true })
 
       // set the token to the login function  
-      userState.dispatch({type: "setLogIn", login: data.token})
+      dispatch({type: "setLogIn", login: data.token})
 
+      contextValues.login(data['token']);
       
       //TODO: Change
       alert("Submitted");
+
+
       //  After everything is okay, navigate to the user's home
 
       navigate("/home");
@@ -169,9 +173,9 @@ const Register = () => {
       </form>
 
       {/* link to login */}
-      <a href="/login" className="text flex-wrap link-light">
+      <Link to="/login" className="text flex-wrap link-light">
         Already a member?
-      </a>
+      </Link>
     </div>
   );
 };

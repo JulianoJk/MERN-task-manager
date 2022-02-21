@@ -1,31 +1,60 @@
-import { useContext } from 'react';
-
-import { UserContext } from '../../context/ContextProvider';
+import { UserContext } from "../../context/ContextProvider";
+import { useContext, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import Menu from "../../components/Header/Menu/Menu";
+import { Button } from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 
 
-const MainNavigation = () => {
-  const authCtx = useContext(UserContext);
-  
+const Navigation = () => {
 
-  const navigate = useNavigate();
+  const  { contextValues }  = useContext(UserContext);
+  const isLoggedIn = contextValues.isLoggedIn;
+
+  const navigate = useNavigate()
 
 
-  const isLoggedIn = authCtx.isLoggedIn;
+  const logOut = () => {
+    contextValues.logout();
+    navigate('/')
+  };
 
-  // Take the path of to link (home & profile) and check is the user is logged in
-  const homeHandler = ( destination ) =>{
-    try {
-      if(isLoggedIn){
-        navigate(`$(destination)`)
-      }else if(!isLoggedIn){
-        console.log("User is not logged!");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  // TODO: After log out, header does not update, fix
+  if(isLoggedIn){
+    return(
+      <header >
+        <nav>
+          <div className="d-flex flex-row-reverse bd-highlight" >          
+            {/* If user is logged in, display Home, profile and logout button */}
+            {isLoggedIn && (
+              <div className="btn-group flex-wrap" role="group">
+                  <Link to="/home" className="btn btn-outline-primary text-light text-opacity-75">Home </Link> 
+
+                  <Link to='/profile' className="btn btn-outline-primary text-white text-opacity-75" >Profile </Link> 
+              </div>
+            )}{isLoggedIn && (
+              
+              <Button event={logOut} text={"Logout"} />
+            )}
+          </div>
+        </nav>
+      </header>
+    );
+  }else if(!isLoggedIn){
+    return(
+      <header >
+        <nav>
+          <div className="d-flex flex-row-reverse bd-highlight" >          
+          {/* If user is not logged, display menu to login and register */}
+          {!isLoggedIn && (
+            <Menu />
+          )}
+          </div>
+        </nav>
+      </header>
+    );
   }
 };
 
-export default MainNavigation;
+export default Navigation;
 
