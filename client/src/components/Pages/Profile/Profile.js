@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { UserContext } from '../../context/ContextProvider';
+import { UserContext } from '../../../context/ContextProvider';
 
 const Profile = () => {
 

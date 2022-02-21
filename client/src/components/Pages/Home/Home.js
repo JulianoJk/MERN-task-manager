@@ -7,6 +7,8 @@ const Home = () => {
 
     const  { contextValues }  = useContext(UserContext);
 
+    const {isLoggedIn} = contextValues;
+
     //get all the tasks from the server
     const getTasks = async()=>{
         const response = await fetch('http://localhost:3001/tasks',{
@@ -20,28 +22,22 @@ const Home = () => {
     }
     const show = () =>{
         console.log(contextValues);
+        console.log(isLoggedIn);
     }
-
-         
-
-    let userStatus = localStorage.getItem("userToken");
-    let initialValue = JSON.parse(userStatus);
-
-
-    // Check is user is logged, if not display message
-    if(initialValue === "" || initialValue === undefined){
+    // Check is user is logged, if not display message, if yes proceed.
+    if (isLoggedIn){
         return (
             <div>
-                <h1> No Account found! Log-In/Register to proceed!</h1>
-            </div>
+                <h1>
+                Home
+                </h1>
+            <Button event={show} text ={"Console log user info"} />
+        </div>
         )
     }else{
         return (
             <div>
-                <h1>
-                    Home
-                </h1>
-                <Button event={show} text ={"Console log user info"} />
+                <h1> No Account found! Log-In/Register to proceed!</h1>
             </div>
         )
     }

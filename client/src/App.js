@@ -1,8 +1,8 @@
 import Index from "./components/Index";
-import Home from "./components/Header/Home/Home";
-import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
-import Profile from "./components/Profile/Profile";
+import Home from "./components/Pages/Home/Home";
+import Login from "./components/Auth/Login/Login";
+import Register from "./components/Auth/Register/Register";
+import Profile from "./components/Pages/Profile/Profile";
 import PasswordReset from "./components/PasswordReset";
 import ContextProvider from "./context/ContextProvider";
 import "./App.css";

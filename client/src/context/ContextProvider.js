@@ -20,7 +20,7 @@ const reducer = (state, action) =>{
         // If the setUser is called in a dispatch and the type has setUser, given the data that are passed, update the variables
         case "setUser":
             return { ...state, username: action.username, token: action.token, id: action.id };
-
+        
         default:
             return{...state}
     }
@@ -41,10 +41,9 @@ const ContextProvider = (props) => {
 
     // Handle log out
     const logoutHandler = () => {        
-        globalState.token = null
+        contextValues.token = null
+        contextValues.isLoggedIn = false;
         localStorage.removeItem('userToken');
-        globalState.isLoggedIn = false;
-        console.log(globalState.token );
     };
 
     // Convert the variable into a boolean, returning either true or false

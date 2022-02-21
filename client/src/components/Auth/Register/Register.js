@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useContext, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/ContextProvider";
-import { useReducer } from "react";
-import { Button } from "../Button/Button";
+import { UserContext } from "../../../context/ContextProvider";
+import { Button } from "../../Button/Button";
 
 
 // Initialized state for every state needed

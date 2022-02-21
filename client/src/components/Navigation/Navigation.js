@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Navigation = () => {
 
   const  { contextValues }  = useContext(UserContext);
-  const isLoggedIn = contextValues.isLoggedIn;
+  const {isLoggedIn} = contextValues;
 
   const navigate = useNavigate()
 
@@ -57,4 +57,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-
