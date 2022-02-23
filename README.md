@@ -20,7 +20,7 @@ $ npm install update
 $ node server.js
 
 ```
-Additionally, in order to run the server, you need to create a .env file
+Additionally, in order to run the server, you need to create a .env file in the cmd/powershell or terminal
 by typing:
 #### For Windows `echo > .env`
 #### For mac/linux `touch .env`
