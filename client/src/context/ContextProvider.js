@@ -43,7 +43,7 @@ const ContextProvider = (props) => {
     const logoutHandler = () => {        
         contextValues.token = null
         contextValues.isLoggedIn = false;
-        localStorage.removeItem('userToken');
+        localStorage.clear();
     };
 
     // Convert the variable into a boolean, returning either true or false

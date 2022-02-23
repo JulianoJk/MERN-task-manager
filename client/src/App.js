@@ -1,4 +1,4 @@
-import Index from "./components/Index";
+import Index from "./components/Pages/Index/Index";
 import Home from "./components/Pages/Home/Home";
 import Login from "./components/Auth/Login/Login";
 import Register from "./components/Auth/Register/Register";

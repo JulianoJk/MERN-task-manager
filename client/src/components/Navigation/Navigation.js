@@ -19,7 +19,6 @@ const Navigation = () => {
     navigate('/')
   };
 
-  // TODO: After log out, header does not update, fix
   if(isLoggedIn){
     return(
       <header >

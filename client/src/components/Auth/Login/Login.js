@@ -2,7 +2,8 @@ import { useContext, useEffect, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../context/ContextProvider";
 import { Button } from "../../Button/Button";
-
+import Logo from '../../../images/logo.png';
+import "../Auth.css"
 
 
 const initState = {
@@ -86,8 +87,13 @@ const Login = () => {
 
 
     return (
-        <div className="container flex-column" style={{width: "50%"}}>
-            <h1>Login</h1>
+        <div className="container flex-column input-container w-50 p-3 border border_style" >
+            {/* container for the logo */}
+            <div>
+                <img src={Logo} alt="Logo-image" className="rounded mx-auto d-block " />
+            </div>
+
+            <h1 className="title" >Login</h1>
             <form onSubmit={handleInputs} >
                 {/*Email Input*/}
                 <label htmlFor="email" className="control-label text"><strong>Email:</strong></label>

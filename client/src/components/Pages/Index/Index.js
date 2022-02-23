@@ -1,15 +1,16 @@
-import Logo from '../images/logo.png';
-import "../App.css"
+import Logo from "../../../images/logo.png";
+import styles from "./Index.module.css"
+
 
 const Index = ()=>{
 
     return (
         <div>
             {/* container for the logo */}
-            <div style={{margin: "10px"}}>
+            <div>
                 <img src={Logo} alt="Logo-image" className="rounded mx-auto d-block " />
             </div>
-            <div className="d-flex justify-content-center" style={{margin: "7px"}}>
+            <div className={`d-flex justify-content-center ${styles.quotes}`}>
                 <h2 className="lead">PROJECT MANAGEMENT</h2>
             </div>            
             <div className="d-flex justify-content-center" style={{margin: "7px"}}>
