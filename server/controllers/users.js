@@ -18,7 +18,6 @@ router.get("/profile", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-    console.log(req.body)
     try {
         const {email, password} = req.body
         if(!email || !password) {
@@ -36,7 +35,7 @@ router.post("/login", async (req, res) => {
         }
 
         //Assign the token to the user
-        const token = jwt.sign({id: user._id}, process.env.JWT_KEY,
+        jwt.sign({id: user._id}, process.env.JWT_KEY,
             (err, token) => {
                 if (err) throw err
                 res.json({

@@ -1,29 +1,24 @@
-import { UserContext } from "../../../context/ContextProvider";
-import { useContext } from "react";
-import TaskForm from "../../Tasks/TaskForm/TaskForm";
-
+import React from 'react';
+import TaskForm from '../../Tasks/TaskForm/TaskForm';
+import { useTaskState } from '../../../context/TaskContext';
 
 const Home = () => {
+	const taskState = useTaskState();
+	const isLoggedIn = taskState.isLoggedIn;
 
-    const  { contextValues }  = useContext(UserContext);
+	if (isLoggedIn) {
+		return (
+			<div>
+				<TaskForm />
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<h1> No Account found! Log-In/Register to proceed!</h1>
+			</div>
+		);
+	}
+};
 
-    const {isLoggedIn} = contextValues;
-
-    // Check is user is logged, if not display message, if yes proceed.
-    if (isLoggedIn){
-        return (
-            <div>
-                <TaskForm />            
-            </div>
-        )
-    }else{
-        return (
-            <div>
-                <h1> No Account found! Log-In/Register to proceed!</h1>
-            </div>
-        )
-    }
-}
-
-
-export default Home
+export default Home;
