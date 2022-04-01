@@ -1,22 +1,22 @@
-import React from 'react';
-import { useTaskState } from '../../../context/TaskContext';
+import React from "react";
+import { useTaskState } from "../../../context/TaskContext";
 
 const Profile = () => {
-	const taskState = useTaskState();
-	const isLoggedIn = taskState.isLoggedIn;
+  const taskState = useTaskState();
+  const isLoggedIn = taskState.isLoggedIn;
 
-	if (isLoggedIn) {
-		return (
-			<div>
-				<h1> Welcome Back {taskState.user.username}! </h1>
-			</div>
-		);
-	} else {
-		return (
-			<div>
-				<h1> No Account found! Log-In/Register to proceed!</h1>
-			</div>
-		);
-	}
+  if (isLoggedIn) {
+    return (
+      <div>
+        <h1> Welcome Back {taskState.user.username}! </h1>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1> No Account found! Log-In/Register to proceed!</h1>
+      </div>
+    );
+  }
 };
 export default Profile;

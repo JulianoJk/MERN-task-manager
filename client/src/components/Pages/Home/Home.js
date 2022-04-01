@@ -1,24 +1,24 @@
-import React from 'react';
-import TaskForm from '../../Tasks/TaskForm/TaskForm';
-import { useTaskState } from '../../../context/TaskContext';
+import React from "react";
+import TaskForm from "../../Tasks/TaskForm/TaskForm";
+import { useTaskState } from "../../../context/TaskContext";
 
 const Home = () => {
-	const taskState = useTaskState();
-	const isLoggedIn = taskState.isLoggedIn;
+  const taskState = useTaskState();
+  const isLoggedIn = taskState.isLoggedIn;
 
-	if (isLoggedIn) {
-		return (
-			<div>
-				<TaskForm />
-			</div>
-		);
-	} else {
-		return (
-			<div>
-				<h1> No Account found! Log-In/Register to proceed!</h1>
-			</div>
-		);
-	}
+  if (isLoggedIn) {
+    return (
+      <div>
+        <TaskForm />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1> No Account found! Log-In/Register to proceed!</h1>
+      </div>
+    );
+  }
 };
 
 export default Home;
